@@ -117,7 +117,7 @@
   .hero::after{
     content:"";
     position:absolute; inset:0;
-    background:linear-gradient(180deg, rgba(117,106,145,0.03) 0%, rgba(117,106,145,0.06) 45%, rgba(63,57,69,0.34) 100%);
+    background:linear-gradient(180deg, rgba(48,43,40,0.34) 0%, rgba(63,57,69,0.14) 30%, rgba(63,57,69,0.60) 100%);
   }
   .hero-content{
     position:relative;
@@ -130,9 +130,10 @@
   .hero-eyebrow{
     font-size:0.68rem;
     letter-spacing:0.36em;
-    font-weight:400;
-    color:#e8ddc4;
+    font-weight:500;
+    color:#f3ecd8;
     margin-bottom:18px;
+    text-shadow:0 1px 4px rgba(0,0,0,.65), 0 2px 14px rgba(0,0,0,.4);
   }
   .hero-names{
     font-family:var(--serif);
@@ -207,11 +208,11 @@
     padding:80px 0 90px;
     text-align:center;
   }
-  .countdown-section .eyebrow{color:var(--gold-soft);}
+  .countdown-section .eyebrow{color:var(--gold-soft); display:block; margin-bottom:34px;}
   .countdown-section h2{
     color:var(--white);
     font-size:clamp(1.6rem,3.5vw,2.2rem);
-    margin:10px 0 46px;
+    margin:46px 0 0;
   }
   .countdown{
     display:flex;
@@ -281,33 +282,32 @@
   .itinerary .head{text-align:center; margin-bottom:70px;}
   .itinerary h2{font-size:clamp(1.8rem,3.6vw,2.4rem);}
   .timeline{
-    max-width:520px;
+    max-width:380px;
     margin:0 auto;
     position:relative;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
   }
   .timeline::before{
     content:"";
     position:absolute;
-    left:78px; top:6px; bottom:6px;
+    left:50%; top:6px; bottom:6px;
     width:1px;
+    transform:translateX(-50%);
     background:var(--line);
   }
   .t-item{
-    display:grid;
-    grid-template-columns:56px 44px 1fr;
-    align-items:start;
-    gap:0 18px;
-    padding-bottom:44px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    gap:8px;
+    padding-bottom:46px;
     position:relative;
+    width:100%;
   }
   .t-item:last-child{padding-bottom:0;}
-  .t-time{
-    font-family:var(--serif);
-    font-size:1.02rem;
-    color:var(--sage-deep);
-    text-align:right;
-    padding-top:2px;
-  }
   .t-dot{
     display:flex; justify-content:center;
     position:relative;
@@ -316,16 +316,20 @@
     width:9px; height:9px;
     border-radius:50%;
     background:var(--lilac);
-    margin-top:8px;
-    box-shadow:0 0 0 5px var(--white);
+    box-shadow:0 0 0 6px var(--white);
     position:relative; z-index:1;
+  }
+  .t-time{
+    font-family:var(--serif);
+    font-size:1.15rem;
+    color:var(--sage-deep);
   }
   .t-label{
     font-family:var(--sans);
-    font-size:1.02rem;
+    font-size:0.92rem;
+    letter-spacing:0.06em;
     font-weight:400;
     color:var(--stone-deep);
-    padding-top:1px;
   }
 
   /* ---------- VENUE ---------- */
@@ -371,6 +375,8 @@
     line-height:1.7;
   }
   .btn{
+    position:relative;
+    overflow:hidden;
     display:inline-block;
     padding:14px 34px;
     border:1px solid var(--gold-soft);
@@ -379,15 +385,28 @@
     font-size:0.78rem;
     letter-spacing:0.16em;
     font-weight:400;
-    transition:background 0.35s ease, color 0.35s ease;
+    cursor:pointer;
+    transition:background 0.35s ease, color 0.35s ease, transform 0.2s ease, box-shadow 0.35s ease;
   }
-  .btn:hover{background:var(--gold-soft); color:var(--stone-deep);}
+  .btn:hover{background:var(--gold-soft); color:var(--stone-deep); box-shadow:0 10px 26px rgba(169,130,79,0.28); transform:translateY(-2px);}
+  .btn:active{transform:translateY(0) scale(0.96);}
   .btn-solid{
     background:var(--sage-deep);
     border-color:var(--sage-deep);
     color:var(--white);
   }
-  .btn-solid:hover{background:var(--gold); border-color:var(--gold); color:var(--stone-deep);}
+  .btn-solid:hover{background:var(--gold); border-color:var(--gold); color:var(--stone-deep); box-shadow:0 10px 26px rgba(169,130,79,0.3);}
+  .ripple{
+    position:absolute;
+    border-radius:50%;
+    transform:scale(0);
+    background:rgba(255,255,255,0.55);
+    pointer-events:none;
+    animation:rippleAnim 0.65s ease-out;
+  }
+  @keyframes rippleAnim{
+    to{transform:scale(2.6); opacity:0;}
+  }
 
   /* ---------- DRESS CODE ---------- */
   .dress{
@@ -424,7 +443,7 @@
   }
    .gallery-grid{
     display:grid;
-    grid-template-columns:1.2fr 1fr 1.1fr;
+    grid-template-columns:1fr 1fr;
     gap:20px;
   }
   .gallery-grid .g-item{
@@ -462,6 +481,8 @@
     line-height:1.7;
   }
   .wa-btn{
+    position:relative;
+    overflow:hidden;
     display:inline-flex;
     align-items:center;
     gap:10px;
@@ -473,9 +494,12 @@
     letter-spacing:0.14em;
     font-weight:500;
     border-radius:2px;
-    transition:transform 0.3s ease, background 0.3s ease;
+    cursor:pointer;
+    transition:transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
   }
   .wa-btn:hover{background:var(--white); transform:translateY(-2px); box-shadow:0 8px 22px rgba(156,143,181,0.35);}
+  .wa-btn:active{transform:translateY(0) scale(0.96);}
+  .wa-btn .ripple{background:rgba(109,99,144,0.28);}
   .wa-btn svg{width:17px; height:17px; fill:var(--sage-deep);}
   .rsvp-note{
     margin-top:22px;
@@ -639,9 +663,6 @@
     .story-text{text-align:left;}
     .story-text p{max-width:none;}
     .gallery-grid{grid-template-columns:1fr 1fr;}
-    .timeline::before{left:64px;}
-    .t-item{grid-template-columns:46px 34px 1fr; gap:0 10px;}
-    .t-time{font-size:0.9rem;}
     .venue-card{padding:40px 26px; margin:24px;}
   }
 
@@ -841,13 +862,13 @@
   <!-- COUNTDOWN -->
   <section class="countdown-section reveal">
     <div class="eyebrow">Faltan</div>
-    <h2>para decir “sí, acepto”</h2>
     <div class="countdown" id="countdown">
       <div class="cd-block"><div class="cd-num" id="cd-days">00</div><div class="cd-label">días</div></div>
       <div class="cd-block"><div class="cd-num" id="cd-hours">00</div><div class="cd-label">horas</div></div>
       <div class="cd-block"><div class="cd-num" id="cd-min">00</div><div class="cd-label">minutos</div></div>
       <div class="cd-block"><div class="cd-num" id="cd-sec">00</div><div class="cd-label">segundos</div></div>
     </div>
+    <h2>para decir “sí, acepto”</h2>
   </section>
 
   <!-- STORY -->
@@ -862,7 +883,7 @@
         </div>
       </div>
       <div class="story-row reverse reveal">
-        <div class="story-img"><img src="images/story1.jpg" alt="Pedro y Yazmin leyendo juntos"></div>
+        <div class="story-img"><img src="images/arboles.jpg" alt="Pedro y Yazmin caminando de la mano"></div>
         <div class="story-text">
           <div class="eyebrow">Nuestra base</div>
           <h3>Con Dios como guía de este camino</h3>
@@ -877,36 +898,37 @@
     <div class="head">
       <div class="eyebrow">Itinerario</div>
       <h2>Así viviremos el día</h2>
+      <a class="btn btn-solid" style="margin-top:26px;" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Boda%20de%20Pedro%20%26%20Yazmin&dates=20261221T213000Z/20261222T023000Z&details=Ceremonia%20y%20recepci%C3%B3n%20en%20Jard%C3%ADn%20Las%20Palmas.%20C%C3%B3digo%20de%20vestimenta%3A%20formal.&location=Jard%C3%ADn%20Las%20Palmas" target="_blank" rel="noopener">Agregar a mi calendario</a>
     </div>
     <div class="timeline">
       <div class="t-item">
-        <div class="t-time">3:30 pm</div>
         <div class="t-dot"><span></span></div>
+        <div class="t-time">3:30 pm</div>
         <div class="t-label">Ceremonia</div>
       </div>
       <div class="t-item">
-        <div class="t-time">4:30 pm</div>
         <div class="t-dot"><span></span></div>
+        <div class="t-time">4:30 pm</div>
         <div class="t-label">Recepción</div>
       </div>
       <div class="t-item">
-        <div class="t-time">5:15 pm</div>
         <div class="t-dot"><span></span></div>
+        <div class="t-time">5:15 pm</div>
         <div class="t-label">Cena</div>
       </div>
       <div class="t-item">
-        <div class="t-time">6:45 pm</div>
         <div class="t-dot"><span></span></div>
+        <div class="t-time">6:45 pm</div>
         <div class="t-label">Sorpresas</div>
       </div>
       <div class="t-item">
-        <div class="t-time">7:30 pm</div>
         <div class="t-dot"><span></span></div>
+        <div class="t-time">7:30 pm</div>
         <div class="t-label">Brindis</div>
       </div>
       <div class="t-item">
-        <div class="t-time">8:00 pm</div>
         <div class="t-dot"><span></span></div>
+        <div class="t-time">8:00 pm</div>
         <div class="t-label">Evento de despedida</div>
       </div>
     </div>
@@ -947,8 +969,12 @@
           <div class="photo-caption"><span>“De la mano, hacia el mismo sueño.”</span></div>
         </div>
         <div class="g-item">
-          <img src="images/arboles.png" alt="Pedro y Yazmin caminando juntos">
-          <div class="photo-caption"><span>“Y lo más bonito apenas comienza…”</span></div>
+          <img src="images/story4.jpg" alt="Pedro y Yazmin caminando junto al río">
+          <div class="photo-caption"><span>“Un mismo camino, un mismo destino.”</span></div>
+        </div>
+        <div class="g-item">
+          <img src="images/story5.jpg" alt="Pedro cargando a Yazmin entre los árboles">
+          <div class="photo-caption"><span>“Contigo todo se siente ligero.”</span></div>
         </div>
       </div>
       <div class="gallery-closing">
@@ -1019,6 +1045,27 @@
       },{threshold:.12, rootMargin:'0px 0px -40px 0px'});
       items.forEach(function(item){observer.observe(item);});
     }else{items.forEach(function(item){item.classList.add('is-visible');});}
+  })();
+
+  // ---------- BUTTON RIPPLE ----------
+  (function(){
+    function addRipple(e){
+      var btn = e.currentTarget;
+      var rect = btn.getBoundingClientRect();
+      var d = Math.max(rect.width, rect.height);
+      var circle = document.createElement('span');
+      circle.className = 'ripple';
+      circle.style.width = circle.style.height = d + 'px';
+      var x = (e.clientX || rect.left + rect.width/2) - rect.left - d/2;
+      var y = (e.clientY || rect.top + rect.height/2) - rect.top - d/2;
+      circle.style.left = x + 'px';
+      circle.style.top = y + 'px';
+      btn.appendChild(circle);
+      setTimeout(function(){ circle.remove(); }, 650);
+    }
+    document.querySelectorAll('.btn, .wa-btn').forEach(function(b){
+      b.addEventListener('click', addRipple);
+    });
   })();
 
   var target = new Date("2026-12-21T15:30:00-06:00").getTime();
