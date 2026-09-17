@@ -131,30 +131,38 @@
     position:fixed;
     left:20px; top:20px;
     z-index:90;
-    width:50px; height:50px;
-    border-radius:50%;
+    height:44px;
+    padding:0 18px 0 14px;
+    border-radius:22px;
     background:var(--white);
     border:1px solid var(--lilac-light);
     display:flex; align-items:center; justify-content:center;
+    gap:10px;
     box-shadow:0 6px 18px rgba(46,43,38,0.18);
     cursor:pointer;
     transition:transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background 0.3s ease;
   }
   .menu-toggle:hover{transform:translateY(-2px); box-shadow:0 10px 24px rgba(46,43,38,0.22);}
   .menu-toggle .bar{
-    display:block; width:19px; height:1px; background:var(--lilac-deep);
-    position:relative; transition:transform .35s ease, opacity .35s ease, background .3s ease;
+    display:block; width:17px; height:1px; background:var(--lilac-deep);
+    position:relative; flex-shrink:0; transition:transform .35s ease, opacity .35s ease, background .3s ease;
   }
   .menu-toggle .bar::before, .menu-toggle .bar::after{
-    content:""; position:absolute; left:0; width:19px; height:1px; background:var(--lilac-deep);
+    content:""; position:absolute; left:0; width:17px; height:1px; background:var(--lilac-deep);
     transition:transform .35s ease, top .35s ease, opacity .2s ease;
   }
   .menu-toggle .bar::before{top:-6px;}
   .menu-toggle .bar::after{top:6px;}
+  .menu-toggle .menu-label{
+    font-family:var(--sans); font-size:0.72rem; letter-spacing:0.18em; font-weight:500;
+    color:var(--lilac-deep); text-transform:uppercase;
+    transition:color .3s ease;
+  }
   .menu-toggle.open{background:var(--lilac-deep); border-color:var(--lilac-deep);}
   .menu-toggle.open .bar{background:transparent;}
   .menu-toggle.open .bar::before{top:0; transform:rotate(45deg); background:var(--white);}
   .menu-toggle.open .bar::after{top:0; transform:rotate(-45deg); background:var(--white);}
+  .menu-toggle.open .menu-label{color:var(--white);}
 
   .menu-overlay{
     position:fixed; inset:0; z-index:80;
@@ -1019,6 +1027,7 @@
   <!-- SIDE MENU -->
   <button id="menu-toggle" class="menu-toggle" type="button" aria-expanded="false" aria-controls="side-menu" aria-label="Abrir menú">
     <span class="bar"></span>
+    <span class="menu-label">Menú</span>
   </button>
   <div id="menu-overlay" class="menu-overlay"></div>
   <aside id="side-menu" class="side-menu" aria-hidden="true">
@@ -1206,13 +1215,13 @@
 
       <div class="parents-grid">
         <div class="parent-card">
-        
+          <div class="eyebrow">Padres del novio</div>
           <h3>Padres del novio</h3>
           <p>Pedro Masiel Estrada<br>Araceli San Roman Zavala</p>
         </div>
 
         <div class="parent-card">
-     
+          <div class="eyebrow">Padres de la novia</div>
           <h3>Padres de la novia</h3>
           <p>Victor Luis Gandia Garcia<br>Concepcion Franco Cobos</p>
         </div>
@@ -1296,6 +1305,7 @@
     var toggle = document.getElementById('menu-toggle');
     var menu = document.getElementById('side-menu');
     var overlay = document.getElementById('menu-overlay');
+    var label = toggle ? toggle.querySelector('.menu-label') : null;
     if(!toggle || !menu || !overlay) return;
 
     function openMenu(){
@@ -1304,6 +1314,7 @@
       toggle.classList.add('open');
       toggle.setAttribute('aria-expanded','true');
       toggle.setAttribute('aria-label','Cerrar menú');
+      if(label) label.textContent = 'Cerrar';
       menu.setAttribute('aria-hidden','false');
       document.documentElement.classList.add('menu-locked');
       document.body.classList.add('menu-locked');
@@ -1314,6 +1325,7 @@
       toggle.classList.remove('open');
       toggle.setAttribute('aria-expanded','false');
       toggle.setAttribute('aria-label','Abrir menú');
+      if(label) label.textContent = 'Menú';
       menu.setAttribute('aria-hidden','true');
       document.documentElement.classList.remove('menu-locked');
       document.body.classList.remove('menu-locked');
