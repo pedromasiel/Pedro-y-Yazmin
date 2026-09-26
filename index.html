@@ -846,8 +846,14 @@
    .gallery-grid{
     display:grid;
     grid-template-columns:1fr 1fr;
-    gap:20px;
+    grid-template-rows:auto 20px auto;
+    column-gap:20px;
+    row-gap:0;
   }
+  .gallery-grid .g-item:nth-child(1){grid-row:1; grid-column:1;}
+  .gallery-grid .g-item:nth-child(2){grid-row:1; grid-column:2;}
+  .gallery-grid .g-item:nth-child(3){grid-row:3; grid-column:1;}
+  .gallery-grid .g-item:nth-child(4){grid-row:3; grid-column:2;}
   .gallery-grid .g-item{
     overflow:hidden;
     border-radius:2px;
@@ -948,29 +954,68 @@
     margin-top:10px;
   }
   .parents-grid{
-    max-width:850px;
+    max-width:900px;
     margin:0 auto 70px;
     display:grid;
     grid-template-columns:1fr 1fr;
-    gap:28px;
+    gap:52px;
+    align-items:start;
   }
   .parent-card{
-    background:rgba(255,253,248,0.72);
-    border:1px solid var(--lilac-light);
-    padding:34px 28px;
+    position:relative;
+    background:transparent;
+    border:0;
+    border-radius:0;
+    padding:8px 18px 0;
     text-align:center;
   }
-  .parent-card .eyebrow{
-    margin-bottom:14px;
-  }
   .parent-card h3{
-    font-size:1.45rem;
-    margin-bottom:13px;
+    position:relative;
+    display:inline-block;
+    font-family:var(--serif);
+    font-size:clamp(1.55rem,2.8vw,2rem);
+    font-weight:500;
+    letter-spacing:.055em;
+    margin:0 0 25px;
+    padding:0 18px 13px;
     color:var(--sage-deep);
   }
+  .parent-card h3::before,
+  .parent-card h3::after{
+    content:"";
+    position:absolute;
+    top:50%;
+    width:42px;
+    height:1px;
+    background:linear-gradient(90deg,transparent,rgba(150,132,157,.55));
+  }
+  .parent-card h3::before{right:100%;}
+  .parent-card h3::after{left:100%; transform:scaleX(-1);}
+  .parent-card h3{border-bottom:1px solid rgba(150,132,157,.42);}
+  .parent-names{
+    position:relative;
+    min-height:92px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:rgba(255,253,248,.92);
+    border:1px solid rgba(150,132,157,.38);
+    border-radius:4px;
+    padding:22px 25px;
+    box-shadow:0 10px 28px rgba(75,61,76,.08), inset 0 0 0 5px rgba(255,255,255,.45);
+  }
+  .parent-names::before{
+    content:"";
+    position:absolute;
+    inset:7px;
+    border:1px solid rgba(150,132,157,.18);
+    pointer-events:none;
+  }
   .parent-card p{
+    margin:0;
     font-size:1rem;
     line-height:1.9;
+    letter-spacing:.025em;
     color:var(--stone);
   }
   .gift-card{
@@ -1053,7 +1098,10 @@
 
   /* ---------- RESPONSIVE ---------- */
   @media (max-width:520px){
-    .gallery-grid{grid-template-columns:1fr;}
+    .gallery-grid{grid-template-columns:1fr; grid-template-rows:none !important; row-gap:20px !important;}
+    .gallery-grid .g-item:nth-child(1),.gallery-grid .g-item:nth-child(2),
+    .gallery-grid .g-item:nth-child(3),.gallery-grid .g-item:nth-child(4){grid-row:auto !important; grid-column:1 !important;}
+    .gallery-grid::after{display:none !important;}
     .hero-content{padding-bottom:12vh;}
     .hero-names{font-size:clamp(2.5rem,14vw,4rem);}
   }
@@ -1078,7 +1126,7 @@
   }
 
   /* ---------- PHOTO / TEXT POLISH ---------- */
-  .venue{min-height:760px; background:#35342e; isolation:isolate;}
+  .venue{min-height:900px; background:#35342e; isolation:isolate;}
   .venue-backdrop{
     position:absolute; inset:-28px; z-index:0;
     background:url('images/molino.jpg') center 70% / cover no-repeat;
@@ -1125,7 +1173,7 @@
   }
 
   @media (max-width: 700px){
-    .venue{min-height:690px;}
+    .venue{min-height:820px;}
     .venue-card{
       top:24px;
       right:50%;
@@ -1248,11 +1296,12 @@
   .envelope-cover.opening .env-photo-group{transform:translateY(-78px) scale(1.22);}
   .env-photo-card{border:1.5px solid rgba(169,130,79,.62); box-shadow:0 16px 34px rgba(46,35,49,.30), 0 0 0 4px rgba(255,253,248,.78), 0 0 0 5px rgba(169,130,79,.34);}
   .env-photo-frame{border:1px solid rgba(169,130,79,.36);}
-  .gallery-grid{gap:24px; position:relative; isolation:isolate;}
-  /* Medallón ornamental discreto entre las cuatro fotografías */
+  .gallery-grid{column-gap:24px; row-gap:0; grid-template-rows:auto 24px auto; position:relative; isolation:isolate;}
+  /* Medallón ornamental discreto entre las cuatro fotografías: se coloca en la fila-espacio
+     entre las dos filas de fotos, así queda centrado sin importar la altura de cada fila. */
   .gallery-grid::after{
-    content:"♡"; position:absolute; z-index:3; left:50%; top:50%;
-    transform:translate(-50%,-50%); width:48px; height:48px;
+    content:"♡"; grid-row:2; grid-column:1/3; align-self:center; justify-self:center;
+    z-index:3; width:48px; height:48px;
     display:grid; place-items:center; box-sizing:border-box;
     color:#9a794d; font-family:var(--serif); font-size:27px; line-height:1;
     background:rgba(255,253,248,.96); border:1px solid #b99a68;
@@ -1282,7 +1331,7 @@
     .envelope-cover.opening .env-photo-group{transform:translateY(-58px) scale(1.13);}
     .envelope-names{font-size:clamp(1.7rem,7vw,2.15rem); margin-bottom:10px;}
     .envelope-btn{padding:13px 40px;}
-    .gallery-grid{gap:15px;}
+    .gallery-grid{column-gap:15px; row-gap:0; grid-template-rows:auto 15px auto;}
     .gallery-grid::after{width:38px;height:38px;font-size:22px;outline-offset:2px;}
     .gallery-grid .g-item{padding:5px; border-radius:13px;}
     .gallery-grid .g-item::before{inset:4px; border-radius:9px;}
@@ -1715,16 +1764,16 @@
           <div class="photo-caption"><span>“Contigo, cada momento se convierte en un recuerdo.”</span></div>
         </div>
         <div class="g-item">
+          <img src="images/story5.jpg" alt="Pedro cargando a Yazmin entre los árboles">
+          <div class="photo-caption"><span>“Contigo todo se siente ligero.”</span></div>
+        </div>
+        <div class="g-item">
           <img src="images/story3.jpg" alt="Pedro y Yazmin sentados juntos">
           <div class="photo-caption"><span>“De la mano, hacia el mismo sueño.”</span></div>
         </div>
         <div class="g-item">
           <img src="images/story4.jpg" alt="Pedro y Yazmin caminando junto al río">
           <div class="photo-caption"><span>“Un mismo camino, un mismo destino.”</span></div>
-        </div>
-        <div class="g-item">
-          <img src="images/story5.jpg" alt="Pedro cargando a Yazmin entre los árboles">
-          <div class="photo-caption"><span>“Contigo todo se siente ligero.”</span></div>
         </div>
       </div>
       <div class="gallery-closing">
@@ -1749,15 +1798,17 @@
 
       <div class="parents-grid">
         <div class="parent-card">
-          <div class="eyebrow">Padres del novio</div>
           <h3>Padres del novio</h3>
-          <p>Pedro Masiel Estrada<br>Araceli San Roman Zavala</p>
+          <div class="parent-names">
+            <p>Pedro Masiel Estrada<br>Araceli San Roman Zavala</p>
+          </div>
         </div>
 
         <div class="parent-card">
-          <div class="eyebrow">Padres de la novia</div>
           <h3>Padres de la novia</h3>
-          <p>Victor Luis Gandia Garcia<br>Concepcion Franco Cobos</p>
+          <div class="parent-names">
+            <p>Victor Luis Gandia Garcia<br>Concepcion Franco Cobos</p>
+          </div>
         </div>
       </div>
 
