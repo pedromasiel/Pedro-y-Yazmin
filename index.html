@@ -1425,6 +1425,104 @@
   .story-img .sprig-b{right:-9%; bottom:-16%; transform:scaleX(-1) rotate(-12deg);}
   @media(max-width:640px){.story-img .story-sprig{width:46px;} .story-img .sprig-a{left:-6%; top:-10%;} .story-img .sprig-b{right:-6%; bottom:-10%;}}
 
+
+  /* ---------- MOBILE RESPONSIVE FINAL ---------- */
+  @media (max-width: 600px){
+    html, body{width:100%; max-width:100%; overflow-x:hidden;}
+    *, *::before, *::after{max-width:100%;}
+    img, svg, video{max-width:100%;}
+
+    .wrap{width:100%; max-width:none; padding-left:20px; padding-right:20px;}
+    .narrow{width:100%; max-width:none; padding-left:20px; padding-right:20px;}
+
+    /* Hero: preserve the portrait photo without stretching it. */
+    .hero{min-height:100svh; min-height:100dvh; width:100%;}
+    .hero img{width:100%; height:100%; object-fit:contain; object-position:center;}
+    .hero-content{padding:0 20px max(82px, 10vh);}
+    .hero-eyebrow{font-size:.60rem; letter-spacing:.25em; line-height:1.5;}
+    .hero-names{font-size:clamp(2.25rem,11.5vw,3.5rem); line-height:1.03; overflow-wrap:break-word;}
+    .hero-date{font-size:.68rem; letter-spacing:.13em; line-height:1.6;}
+
+    /* Sections and headings */
+    .intro,.calendar-section,.itinerary,.details,.dress{padding-top:76px; padding-bottom:76px;}
+    .countdown-section,.rsvp{padding-top:72px; padding-bottom:76px;}
+    .details-head{margin-bottom:38px; padding:0 8px;}
+    .details-head h2{font-size:clamp(1.65rem,7.5vw,2.1rem); line-height:1.15;}
+
+    /* Countdown stays on one clean line when possible and wraps safely on very narrow phones. */
+    .countdown{gap:16px 22px; padding:0 12px;}
+    .cd-block{min-width:58px; flex:0 1 58px;}
+    .cd-num{font-size:clamp(2rem,10vw,2.8rem);}
+    .cd-label{font-size:.58rem; letter-spacing:.12em;}
+
+    /* Story cards never exceed the viewport. */
+    .story-row{width:100%; margin-bottom:72px;}
+    .story-img{width:100%; max-width:100%;}
+    .story-img img{width:100%; max-width:100%; height:auto; aspect-ratio:1.18; object-fit:cover;}
+    .story-text{width:100%; max-width:100%; padding-left:4px; padding-right:4px;}
+    .story-text h3{font-size:clamp(1.55rem,7vw,2rem); line-height:1.2;}
+    .story-text p{font-size:.94rem; line-height:1.8; max-width:100%;}
+
+    /* Calendar */
+    .mini-calendar{width:100%; max-width:340px; padding:26px 16px 30px;}
+    .mc-grid{gap:5px 2px;}
+    .mc-day{height:32px; font-size:.76rem;}
+    .calendar-section .btn{max-width:calc(100% - 20px); white-space:normal; text-align:center;}
+
+    /* Venue: card and photo stack cleanly on phones. */
+    .venue{width:100%; min-height:650px;}
+    .venue img{width:100%; height:100%; object-fit:cover; object-position:center bottom;}
+    .venue-card{left:50%; right:auto; width:calc(100% - 36px); max-width:360px; margin:0; transform:translateX(-50%); box-sizing:border-box; padding:24px 18px 22px;}
+    .venue-card h2{font-size:clamp(1.5rem,7vw,2rem); line-height:1.15;}
+    .venue-card p{font-size:.86rem; line-height:1.6;}
+    .venue-card .btn{max-width:100%; padding:11px 22px;}
+
+    /* Gallery: one column, natural image proportions, no forced height on narrow screens. */
+    .gallery{padding:8px 0 76px;}
+    .gallery-grid{grid-template-columns:1fr !important; grid-template-rows:none !important; gap:18px !important;}
+    .gallery-grid .g-item,
+    .gallery-grid .g-item img{min-height:0; height:auto; max-height:none;}
+    .gallery-grid .g-item{width:100%; padding:5px;}
+    .gallery-grid .g-item img{width:100%; aspect-ratio:auto; object-fit:cover;}
+    .photo-caption{padding:48px 14px 14px;}
+    .photo-caption span{font-size:1rem;}
+    .gallery-closing{padding:42px 10px 0;}
+    .gallery-closing p{font-size:1.25rem;}
+
+    /* Parents: stacked, flexible cards with no text compression. */
+    .parents-grid{width:100%; max-width:100%; grid-template-columns:1fr !important; gap:34px; margin-bottom:48px;}
+    .parent-card{width:100%; max-width:100%; padding:0 4px;}
+    .parent-card h3{font-size:clamp(1.35rem,6.5vw,1.75rem); line-height:1.2; margin-bottom:20px; padding:0 12px 10px; letter-spacing:.035em;}
+    .parent-card h3::before,.parent-card h3::after{width:24px;}
+    .parent-names{width:100%; min-height:88px; padding:20px 14px; border-radius:5px;}
+    .parent-names::before{inset:6px;}
+    .parent-card p{font-size:.92rem; line-height:1.75; overflow-wrap:anywhere;}
+
+    .gift-card{width:100%; max-width:100%; padding:32px 18px;}
+    .gift-card p{font-size:.9rem; line-height:1.7;}
+
+    /* RSVP */
+    .rsvp h2{font-size:clamp(1.55rem,7vw,2.05rem); line-height:1.2; padding:0 12px;}
+    .rsvp p{font-size:.9rem; line-height:1.7; padding:0 10px;}
+    .wa-btn{max-width:calc(100% - 32px); padding:14px 20px; justify-content:center; white-space:normal; text-align:center;}
+
+    /* Fixed controls stay inside the safe area. */
+    .menu-toggle{left:max(12px, env(safe-area-inset-left)); top:max(12px, env(safe-area-inset-top));}
+    .music-toggle{right:max(12px, env(safe-area-inset-right)); bottom:max(12px, env(safe-area-inset-bottom));}
+    .side-menu{width:min(88vw,320px); padding-left:24px; padding-right:24px;}
+  }
+
+  @media (max-width:380px){
+    .wrap{padding-left:16px; padding-right:16px;}
+    .narrow{padding-left:16px; padding-right:16px;}
+    .hero-content{padding-left:16px; padding-right:16px;}
+    .hero-names{font-size:clamp(2.05rem,11vw,3rem);}
+    .countdown{gap:14px 12px;}
+    .cd-block{min-width:54px; flex-basis:54px;}
+    .parent-card h3::before,.parent-card h3::after{width:18px;}
+    .parent-names{padding-left:10px; padding-right:10px;}
+  }
+
 </style>
 </head>
 <body>
